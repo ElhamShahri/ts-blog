@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { IPropsBlogs } from "../types/blog.types";
+import { IPropsBlogs, PropsBlogs } from "../types/blog.types";
 
-type PropsBlogs = Omit<IPropsBlogs, "blog" | "key">;
+
 const BlogTableComponent: FC<PropsBlogs> = ({ blogs }) => {
   return (
     <div className="flex flex-col mt-5 p-5">
@@ -57,7 +57,7 @@ const BlogTableComponent: FC<PropsBlogs> = ({ blogs }) => {
                   <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                     {blog.title}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                  <td className="px-6 py-4 text-sm text-black-300 whitespace-nowrap">
                     {blog.author}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">

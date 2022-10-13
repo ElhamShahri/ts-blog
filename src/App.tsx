@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BlogCardConponent from "./components/BlogCard";
+import BlogsListConponent from "./components/BlogsList";
 import BlogTableComponent from "./components/BlogTables";
 import NavBar from "./components/NavBar";
 import { IBlog } from "./types/blog.types";
@@ -35,7 +36,7 @@ function App() {
       <hr />
       <NavBar></NavBar>
       <BlogTableComponent blogs={blogs}/>
-      <BlogCardConponent blogs={blogs}/>
+      <BlogsListConponent blogs={blogs}/>
     </div>
   );
 }

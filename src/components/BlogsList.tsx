@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { IBlog, IPropsBlogs } from "../types/blog.types";
+import { PropsBlogs } from "../types/blog.types";
 import BlogCardConponent from "./BlogCard";
 
-type PropsBlogs = Omit<IPropsBlogs, "blog" | "key">;
+
 const BlogsListConponent: FC<PropsBlogs> = ({ blogs }) => {
   return (
     <>

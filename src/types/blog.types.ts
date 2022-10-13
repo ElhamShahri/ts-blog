@@ -10,3 +10,6 @@ export interface IPropsBlogs {
   blog: IBlog;
   key: number;
 }
+
+export type PropsBlog = Omit<IPropsBlogs, "blogs">;
+export type PropsBlogs = Omit<IPropsBlogs, "blog" | "key">;
