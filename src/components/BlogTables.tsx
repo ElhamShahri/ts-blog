@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IPropsBlogs, PropsBlogs } from "../types/blog.types";
+import {  PropsBlogs } from "../types/blog.types";
 
 
 const BlogTableComponent: FC<PropsBlogs> = ({ blogs }) => {
