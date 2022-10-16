@@ -1,28 +1,37 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 interface IProps {
-  setShowLoginModal: Dispatch<SetStateAction<boolean>>;
+    setShowRegisterModal: Dispatch<SetStateAction<boolean>>;
 }
-const LoginModalComponent: FC<IProps> = ({setShowLoginModal}) => {
-//   const [showModal, setShowLoginModal] = useState(false);
+const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
+  //   const [showModal, setShowLoginModal] = useState(false);
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
       <div
         className="fixed inset-0 w-full h-full bg-black opacity-40"
-        onClick={() => setShowLoginModal(false)}
+        onClick={() => setShowRegisterModal(false)}
       ></div>
       <div className="flex items-center px-4 py-8">
         <div className="relative max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
           <div className="mt-3 sm:flex">
             <div className="mt-2 text-center sm:ml-4 sm:text-left">
-              <h4 className="text-lg font-medium text-gray-800">Login</h4>
+              <h4 className="text-lg font-medium text-gray-800">Register</h4>
               <div>
                 <div>
                   <div className="item-center pt-6 sm:pt-0">
                     <div className="p-3 mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg ">
                       <form>
-    
-                        <div className="mt-4">
+                      <div >
                           <div className="flex flex-col items-start">
+                            <input
+                              type="text"
+                              name="fullname"
+                              placeholder="fullname"
+                              className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            />
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <div className="flex flex-col item start">
                             <input
                               type="text"
                               name="username"
@@ -31,6 +40,7 @@ const LoginModalComponent: FC<IProps> = ({setShowLoginModal}) => {
                             />
                           </div>
                         </div>
+        
                         <div className="mt-4">
                           <div className="flex flex-col items-start">
                             <input
@@ -46,14 +56,14 @@ const LoginModalComponent: FC<IProps> = ({setShowLoginModal}) => {
                         <button
                           className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
                           onClick={() => {
-                            setShowLoginModal(false);
+                            setShowRegisterModal(false);
                           }}
                         >
-                          submit
+                          Submit
                         </button>
                         <button
                           className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
-                          onClick={() => setShowLoginModal(false)}
+                          onClick={() => setShowRegisterModal(false)}
                         >
                           Cancel
                         </button>
@@ -70,4 +80,4 @@ const LoginModalComponent: FC<IProps> = ({setShowLoginModal}) => {
   );
 };
 
-export default LoginModalComponent;
+export default RegisterModalComponent;
