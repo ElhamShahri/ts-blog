@@ -1,4 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
+import { BackEndURL, useApiPost } from "../functions/FetchApi";
+import { TApiResponse } from "../types/public.types";
+
 interface IProps {
   setShowLoginModal: Dispatch<SetStateAction<boolean>>;
 }
@@ -7,6 +10,8 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [username, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const { postApiData, status, statusText, error, data } = useApiPost();
+
   const resetForm = () => {
     setUserName("");
     setPassword("");
@@ -14,8 +19,9 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
     setShowLoginModal(false);
   };
 
-  const LoginHandler = () => {
+  const LoginHandler = async () => {
     console.log(username, password);
+    postApiData(BackEndURL, { username, password });
     resetForm();
     setShowLoginModal(false);
   };
