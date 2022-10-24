@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { BackEndURL, useApiPost } from "../functions/FetchApi";
 import { TApiResponse } from "../types/public.types";
 
@@ -21,10 +21,25 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
 
   const LoginHandler = async () => {
     console.log(username, password);
-    postApiData(BackEndURL, { username, password });
-    resetForm();
-    setShowLoginModal(false);
+    postApiData("/auth/login", { username, password });
+    // console.log("data:", data);
+    if (status && status != 200) {
+      alert(data.message);
+      setShowLoginModal(false);
+    } else {
+      console.log("data:", data);
+      resetForm();
+    }
+    // console.log("status:", status);
+    // console.log("statusText:", statusText);
+    // console.log("error:", error);
   };
+
+  useEffect(() => {
+    if (data) {
+      console.log("data:", data);
+    }
+  }, [data]);
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
