@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { BackEndURL, useApiPost } from "../functions/FetchApi";
-import { TApiResponse } from "../types/public.types";
+import { TPostApiResponse } from "../types/public.types";
 
 interface IProps {
   setShowLoginModal: Dispatch<SetStateAction<boolean>>;
@@ -11,6 +11,8 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [password, setPassword] = useState<string>("");
 
   const { postApiData, status, statusText, error, data } = useApiPost();
+
+  useEffect(() => {}, [data]);
 
   const resetForm = () => {
     setUserName("");
@@ -30,16 +32,11 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
       console.log("data:", data);
       resetForm();
     }
+    alert(error.message);
     // console.log("status:", status);
     // console.log("statusText:", statusText);
     // console.log("error:", error);
   };
-
-  useEffect(() => {
-    if (data) {
-      console.log("data:", data);
-    }
-  }, [data]);
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
