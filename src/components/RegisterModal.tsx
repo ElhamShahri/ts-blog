@@ -1,4 +1,12 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import { useApiPost } from "../functions/FetchApi";
 interface IProps {
   setShowRegisterModal: Dispatch<SetStateAction<boolean>>;
 }
@@ -8,19 +16,28 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
   const [username, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const { postApiData, status, statusText, error, data } = useApiPost();
+
   const resetForm = () => {
     setFullName("");
     setUserName("");
     setPassword("");
     console.log(fullname, username, password);
-    setShowRegisterModal(false)
+    setShowRegisterModal(false);
   };
 
   const RegisterHandler = () => {
-    console.log(fullname, username, password);
-    resetForm();
-    setShowRegisterModal(false);
+    postApiData("/auth/register", { username, password, fullname });
   };
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      alert('You register successfully')
+      resetForm()
+      setShowRegisterModal(false);
+    }
+  }, [data]);
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">

@@ -22,21 +22,17 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   };
 
   const LoginHandler = async () => {
-    console.log(username, password);
     postApiData("/auth/login", { username, password });
-    // console.log("data:", data);
-    if (status && status != 200) {
-      alert(data.message);
-      setShowLoginModal(false);
-    } else {
-      console.log("data:", data);
-      resetForm();
-    }
-    alert(error.message);
-    // console.log("status:", status);
-    // console.log("statusText:", statusText);
-    // console.log("error:", error);
   };
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      alert("You Login successfully");
+      resetForm();
+      setShowLoginModal(false);
+    }
+  }, [data]);
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">

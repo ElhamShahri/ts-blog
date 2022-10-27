@@ -18,14 +18,15 @@ export const useApiPost = (): TPostApiResponse => {
     setLoading(true);
     try {
       const response = await axios.post(`${BackEndURL}${path}`, body, options);
- 
+
       setStatusText(response.statusText);
-      const data = response.data;
+      const data =  await  response.data;
       setData(data);
       setStatus(response.status || data.status);
     } catch (error: AxiosError | any) {
       setStatus(error?.response?.data?.status || 500);
       setError(error?.response?.data);
+      return alert(error?.response?.data?.message)
     }
     setLoading(false);
   };
