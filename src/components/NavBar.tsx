@@ -5,6 +5,7 @@ import LoginModalComponent from "./LoginModal";
 import RegisterModalComponent from "./RegisterModal";
 import { useCookies } from "react-cookie";
 import { COOKIE_NAMES } from "../enums/public.enums";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -74,20 +75,13 @@ export default function NavBar() {
           >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
               <li className="text-white hover:text-indigo-200">
-                Home
-                {/* <Link to="/">Home</Link> */}
+                <Link to="/">Home</Link>
               </li>
               <li className="text-white hover:text-indigo-200">
-                Blogs
-                {/* <Link to="/blogs">Blogs</Link> */}
+                <Link to="/blogs">Blogs</Link>
               </li>
               <li className="text-white hover:text-indigo-200">
-                Dashboard
-                {/* <Link to="/dashboard">Dashboard</Link> */}
-              </li>
-              <li className="text-white hover:text-indigo-200">
-                AboutMe
-                {/* <Link to="/AboutMe">AboutMe</Link> */}
+                <Link to="/dashboard">Dashboard</Link>
               </li>
             </ul>
 
