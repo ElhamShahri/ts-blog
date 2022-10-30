@@ -3,11 +3,22 @@
 import { useState } from "react";
 import LoginModalComponent from "./LoginModal";
 import RegisterModalComponent from "./RegisterModal";
+import { useCookies } from "react-cookie";
+import { COOKIE_NAMES } from "../enums/public.enums";
 
 export default function NavBar() {
   const [navbar, setNavbar] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    COOKIE_NAMES.ACCESS_TOKEN,
+    COOKIE_NAMES.USER,
+  ]);
+
+  function LogoutHandler() {
+    removeCookie(COOKIE_NAMES.ACCESS_TOKEN);
+    removeCookie(COOKIE_NAMES.USER);
+  }
 
   const NAV: JSX.Element = (
     <nav className="w-full bg-purple-500 shadow">
@@ -81,53 +92,84 @@ export default function NavBar() {
             </ul>
 
             {/* <div className="mt-3 space-y-2 lg:hidden md:inline-block"> */}
-            <div className="mt-3 space-y-2 lg:hidden md:hidden">
-              <a
-                onClick={() => {
-                  setShowLoginModal(true);
-                }}
-                href="javascript:void(0)"
-                //   onClick={() => setShowLoginModal(true)}
-                className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-              >
-                Sign in
-              </a>
-              <a
-                onClick={() => {
-                  setShowRegisterModal(true);
-                }}
-                href="javascript:void(0)"
-                //   onClick={() => setShowRegisterModal(true)}
-                className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-              >
-                Sign up
-              </a>
-            </div>
+
+            {cookies.accessToken && cookies.user ? (
+              <div className="mt-3 space-y-2 lg:hidden md:hidden">
+                <a
+                  onClick={() => {
+                    LogoutHandler();
+                  }}
+                  href="javascript:void(0)"
+                  //   onClick={() => setShowLoginModal(true)}
+                  className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                >
+                  Logout
+                </a>
+              </div>
+            ) : (
+              <div className="mt-3 space-y-2 lg:hidden md:hidden">
+                <a
+                  onClick={() => {
+                    setShowLoginModal(true);
+                  }}
+                  href="javascript:void(0)"
+                  //   onClick={() => setShowLoginModal(true)}
+                  className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                >
+                  Sign in
+                </a>
+                <a
+                  onClick={() => {
+                    setShowRegisterModal(true);
+                  }}
+                  href="javascript:void(0)"
+                  //   onClick={() => setShowRegisterModal(true)}
+                  className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                >
+                  Sign up
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="hidden space-x-2 md:inline-block">
-          <a
-            onClick={() => {
-              setShowLoginModal(true);
-            }}
-            href="javascript:void(0)"
-            //   onClick={() => setShowLoginModal(true)}
-            className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-          >
-            Sign in
-          </a>
-          <a
-            onClick={() => {
-              setShowRegisterModal(true);
-            }}
-            href="javascript:void(0)"
-            //   onClick={() => setShowRegisterModal(true)}
-            className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-          >
-            Sign up
-          </a>
-        </div>
+        {cookies.accessToken && cookies.user ? (
+          <div className="hidden space-x-2 md:inline-block">
+            <a
+              onClick={() => {
+                LogoutHandler();
+              }}
+              href="javascript:void(0)"
+              //   onClick={() => setShowLoginModal(true)}
+              className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+            >
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div className="hidden space-x-2 md:inline-block">
+            <a
+              onClick={() => {
+                setShowLoginModal(true);
+              }}
+              href="javascript:void(0)"
+              //   onClick={() => setShowLoginModal(true)}
+              className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+            >
+              Sign in
+            </a>
+            <a
+              onClick={() => {
+                setShowRegisterModal(true);
+              }}
+              href="javascript:void(0)"
+              //   onClick={() => setShowRegisterModal(true)}
+              className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+            >
+              Sign up
+            </a>
+          </div>
+        )}
       </div>
     </nav>
   );

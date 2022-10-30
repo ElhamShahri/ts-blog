@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { BackEndURL, useApiPost } from "../functions/FetchApi";
-import { TPostApiResponse } from "../types/public.types";
+import { useApiPost } from "../functions/FetchApi";
+import { useCookies } from "react-cookie";
+import { COOKIE_NAMES } from "../enums/public.enums";
 
 interface IProps {
   setShowLoginModal: Dispatch<SetStateAction<boolean>>;
@@ -11,6 +12,10 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [password, setPassword] = useState<string>("");
 
   const { postApiData, status, statusText, error, data } = useApiPost();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    COOKIE_NAMES.ACCESS_TOKEN,
+    COOKIE_NAMES.USER,
+  ]);
 
   useEffect(() => {}, [data]);
 
@@ -28,6 +33,12 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   useEffect(() => {
     if (data) {
       console.log(data);
+      const {
+        data: { user },
+      } = data;
+      console.log(user);
+      setCookie(COOKIE_NAMES.USER, user);
+      setCookie(COOKIE_NAMES.ACCESS_TOKEN, user?.accessToken);
       alert("You Login successfully");
       resetForm();
       setShowLoginModal(false);

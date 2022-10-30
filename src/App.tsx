@@ -4,6 +4,7 @@ import BlogsListConponent from "./components/BlogsList";
 import BlogTableComponent from "./components/BlogTables";
 import NavBar from "./components/NavBar";
 import { IBlog } from "./types/blog.types";
+import { useCookies } from "react-cookie";
 
 function App() {
   const blogData: IBlog[] = [
@@ -29,14 +30,17 @@ function App() {
     },
   ];
   const [blogs, setBlogs] = useState<IBlog[]>(blogData);
+  const [cookies] = useCookies(["accessToken", "user"]);
+  console.log(cookies.accessToken);
+  console.log(cookies.user);
 
   return (
     <div className="App">
       <header className="App-header"></header>
       <hr />
       <NavBar></NavBar>
-      <BlogTableComponent blogs={blogs}/>
-      <BlogsListConponent blogs={blogs}/>
+      <BlogTableComponent blogs={blogs} />
+      <BlogsListConponent blogs={blogs} />
     </div>
   );
 }
